@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300&family=Sarabun:wght@100&display=swap"
       rel="stylesheet">
-    <title>Root Config</title>
+    <title>N5Now</title>
     <!--
     Remove this if you only support browsers that support async/await.
     This is needed by babel to share largeish helper code for compiling async/await in older
@@ -31,10 +31,20 @@
 
     1. System.register (preferred when possible) - https://github.com/systemjs/systemjs/blob/master/docs/system-register.md
     2. UMD - https://github.com/umdjs/umd
-    3. Global variable
+    3. Global variable 
 
     More information about shared dependencies can be found at https://single-spa.js.org/docs/recommended-setup#sharing-with-import-maps.
   -->
+
+    <script>
+      window.addEventListener('single-spa:first-mount', () => {
+        const loadingAnimation = document.querySelector('#single-spa-home');
+        if (loadingAnimation) {
+          loadingAnimation.remove();
+        };
+      });
+    </script>
+
     <script type="systemjs-importmap">
     {
       "imports": {
@@ -53,8 +63,9 @@
       <script type="systemjs-importmap">
     {
       "imports": {
-        "@n5now/root-config": "//localhost:5000/n5now-root-config.js",
-        "@n5now/app-rick-and-morty": "//localhost:5001/n5now-app-rick-and-morty.js"
+        "@n5now/root-config": "//localhost:5000/n5now-root-config.js", 
+        "@n5now/app-rick-and-morty": "//localhost:5001/n5now-app-rick-and-morty.js",
+        "@n5now/app-simpsons": "//localhost:5002/n5now-app-simpsons.js"
       }
     }
   </script>
@@ -77,6 +88,25 @@
   </head>
 
   <body>
+    <div id="single-spa-home">
+      <div class="home">
+        <div class="home__title">
+          Bienvenido
+        </div>
+        <div class="home__description">
+          Gracias por acceder a nuestro sitio, queremos brindarte la mejor experiencia, por eso te damos la posibilidad
+          de elegir a que pagina quieres acceder.
+        </div>
+        <div class="home__buttons">
+          <button class="home__button">
+            <a href="/rick-and-morty" target="_blank">Rick and Morty</a>
+          </button>
+          <button class="home__button">
+            <a href="/simpsons" target="_blank">The Simpsons</a>
+          </button>
+        </div>
+      </div>
+    </div>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
@@ -96,6 +126,48 @@
     body {
       margin: 0;
       padding: 0;
+    }
+
+    .home {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .home__title {
+      padding: 10px;
+      font-size: 48px;
+      font-weight: bold;
+    }
+
+    .home__description {
+      padding: 10px;
+      font-size: 16px;
+      width: 350px;
+    }
+
+    .home__buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 10px;
+      width: 350px;
+    }
+
+    .home__button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      background-color: #03C988;
+    }
+
+    .home__button a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
     }
   </style>
 
